@@ -1,6 +1,8 @@
 # dependencies
 node_modules
 
+.idea
+
 # logs
 npm-debug.log
 
@@ -9,3 +11,7 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+sw.*
+
+yarn-error.log
