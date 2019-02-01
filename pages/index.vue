@@ -20,7 +20,7 @@ export default {
   methods:{
     async SoundTrigger(type) {
       try {
-        await this.$axios.$get(`https://172.22.0.144:8080/play/${type}`)
+        await this.$axios.$get(`http://172.22.0.144:8080/play/${type}`)
       } catch (e) {
         console.log(e);
       }
