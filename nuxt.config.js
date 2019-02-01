@@ -15,7 +15,6 @@ module.exports = {
   },
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
     '@nuxtjs/vuetify',
     '@nuxtjs/pwa'
   ],
