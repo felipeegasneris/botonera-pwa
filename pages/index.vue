@@ -16,19 +16,19 @@ export default {
   methods:{
     async SoundTrigger(type) {
       try {
-        await this.$axios.$get(`http://172.22.0.144:8080/play/${type}`)
+        await this.$store.dispatch('botonera/playSound', { type });
       } catch (e) {
         console.log(e);
       }
 
     },
     async getPlaylist() {
-      await store.dispatch('botonera/GET_PLAYLIST');
+      await store.dispatch('botonera/getPlaylist');
     },
   },
-  async fetch ({ store, params }) {
-      await store.dispatch('botonera/GET_PLAYLIST');
-    }
+  async mounted() {
+    this.$store.dispatch('botonera/getPlaylist');
+  },
 }
 </script>
 
