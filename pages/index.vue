@@ -3,11 +3,7 @@
     <v-app>
       <v-content>
         <v-container>
-          Hello world
-          <v-btn color="success" @click="SoundTrigger(1)">💥</v-btn>
-          <v-btn color="error" @click="SoundTrigger(2)">💥💥</v-btn>
-          <v-btn color="warning">Warning</v-btn>
-          <v-btn color="info">Info</v-btn>
+          <v-btn v-bind:key="index" v-for="(item, index) in $store.state.botonera.playlist" @click="SoundTrigger(index)">{{item[index]}}</v-btn>
         </v-container>
       </v-content>
     </v-app>
@@ -25,8 +21,14 @@ export default {
         console.log(e);
       }
 
+    },
+    async getPlaylist() {
+      await store.dispatch('botonera/GET_PLAYLIST');
+    },
+  },
+  async fetch ({ store, params }) {
+      await store.dispatch('botonera/GET_PLAYLIST');
     }
-  }
 }
 </script>
 
