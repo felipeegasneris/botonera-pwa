@@ -1,18 +1,40 @@
 import axios from 'axios'
 
 const uri = 'http://172.22.0.144:8080';
+
+const icons = ["🥀", "💥",
+  "💥💥", "💦",
+  "👋👋", "🐑",
+  "carmina", "🐓", "🍌🐰",
+  "👌🐰", "🥁",
+  "❓💸", "❌💸",
+  "🦗", "😻",
+  "👩🍒", "🤵ffff",
+  "🤵uhh", "⛪✝️",
+  "🏟️🇨🇱🎉", "😥🎻",
+  "💰💰", "🚿🎵",
+  "👩AH", "yapo.cl",
+  "🤷‍", "⚡",
+  "⚡🔋", "⬛⬛"]
+
+const matchIcons = (list) => {
+  return icons.map((v, k) => {
+    return {icon: v, id: list[k].id, value: list[k].value}
+  })
+
+}
 export const actions = {
   async getPlaylist ({ commit }) {
     const { data } = await axios.get(`${uri}/list`);
-    let list = [];
-    for (var key in data) {
-      if (data.hasOwnProperty(key)) {
-        const obj = {}
-        obj[key] = data[key];
-        list.push(obj)
-      }
-    }
-    commit('SET_PLAYLIST', list)
+    console.log(data)
+    const list = Object.values(data)
+    const mapList = list.map((v, k) => {
+      return {id: k, value: v}
+    })
+
+    const listWithIcons = matchIcons(mapList)
+    console.log(listWithIcons)
+    commit('SET_PLAYLIST', listWithIcons)
   },
   async playSound ({ commit }, data) {
     await axios.get(`${uri}/play/${data.type}`);
