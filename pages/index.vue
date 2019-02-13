@@ -1,13 +1,23 @@
 <template>
-  <section class="container">
-    <v-app>
-      <v-content>
-        <v-container>
-          <v-btn v-bind:key="index" v-for="(item, index) in $store.state.botonera.playlist" @click="SoundTrigger(index)">{{item[index]}}</v-btn>
+  <v-layout>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+        <v-container grid-list-xs fluid>
+          <v-layout row wrap>
+            <v-flex align-self-center
+              :key="index"
+              v-for="(item, index) in $store.state.botonera.playlist"
+              @click="SoundTrigger(index)"
+            >
+              <v-card flat tile>
+                <v-btn>{{item.icon}}</v-btn>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </v-container>
-      </v-content>
-    </v-app>
-  </section>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
