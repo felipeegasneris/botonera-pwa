@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const uri = 'http://172.22.0.144:8080';
+const rbUri = 'http://172.22.0.144:8080';
+const functionUrl = 'https://us-central1-raspberry-instants.cloudfunctions.net/botonera';
 
 const icons = ["🥀", "💥",
   "💥💥", "💦",
@@ -17,27 +18,21 @@ const icons = ["🥀", "💥",
   "🤷‍", "⚡",
   "⚡🔋", "⬛⬛"]
 
-const matchIcons = (list) => {
-  return icons.map((v, k) => {
-    return {icon: v, id: list[k].id, value: list[k].value}
+const filterPublic = (list) => {
+  return list.filter( (value, index, array) => {
+    return value.public === true;
   })
-
 }
 export const actions = {
   async getPlaylist ({ commit }) {
-    const { data } = await axios.get(`${uri}/list`);
-    console.log(data)
-    const list = Object.values(data)
-    const mapList = list.map((v, k) => {
-      return {id: k, value: v}
-    })
-
-    const listWithIcons = matchIcons(mapList)
-    console.log(listWithIcons)
-    commit('SET_PLAYLIST', listWithIcons)
+    const { data } = await axios.get(`${functionUrl}/song/list`);
+    commit('SET_PLAYLIST', filterPublic(data.songs))
   },
-  async playSound ({ commit }, data) {
-    await axios.get(`${uri}/play/${data.type}`);
+  async playSong ({ commit }, data) {
+    await axios.get(`${rbUri}/play/${data.type}`);
+  },
+  async stopSongs () {
+    await axios.get(`${rbUri}/stop`);
   }
 }
 
